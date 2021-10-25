@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import { Formik } from 'formik';
 
-const CreatePassword = () => {
+const CreatePassword = ({navigation}) => {
     return (
         <>
             <View style={{padding: 16}}>
@@ -12,7 +12,7 @@ const CreatePassword = () => {
             <View>
             <Formik
                     initialValues={{ password: '', confirm: '' }}
-                    onSubmit={values => console.log(values)}>
+                    onSubmit={values => navigation.navigate('successScreen')}>
                             {({ handleChange, handleBlur, handleSubmit, values }) => (
                                 <>
                                     <View style={{paddingTop: 32}}>

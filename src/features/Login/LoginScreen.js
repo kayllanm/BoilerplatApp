@@ -11,7 +11,7 @@ const LoginScreen = ({navigation}) => {
             <View>
                 <Formik
                     initialValues={{ email: '', password: '' }}
-                    onSubmit={values => console.log(values)}>
+                    onSubmit={values => navigation.navigate('Dashboard')}>
                             {({ handleChange, handleBlur, handleSubmit, values }) => (
                                 <>
                         <View style={{paddingTop: 48}}>
