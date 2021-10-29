@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 const MyLeave = ({navigation}) => {
@@ -35,14 +43,14 @@ const MyLeave = ({navigation}) => {
       Pending: '0.0000',
     },
     {
-      id: '4',
+      id: '5',
       title: 'Paternity Leave',
       Available: '4.0000',
       Pending: '0.0000',
     },
   ];
 
-  const leaveCard = ({item}) => {
+  const leaveBalanceCard = ({item}) => {
     return (
       <View>
         <View style={styles.myLeaveCardHeaderTextContainerStyle}>
@@ -84,12 +92,149 @@ const MyLeave = ({navigation}) => {
     );
   };
 
-  const leaveRequestSegment = () => {
+  const leaveBalanceSegment = () => {
     return (
       <View>
         <FlatList
           data={leaveBalnceData}
-          renderItem={leaveCard}
+          renderItem={leaveBalanceCard}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{paddingBottom: 120}}
+        />
+      </View>
+    );
+  };
+
+  const leaveRequestCard = ({item}) => {
+    let colors = {
+      containerBackgroundcolor: 'rgba(0, 68, 114, 0.1)',
+      statusContainer: 'rgba(0, 68, 114, 1)',
+      statusText: 'rgba(0, 68, 114, 1)',
+    };
+
+    if (item.status === 'Approved') {
+      colors.containerBackgroundcolor = 'rgba(0, 176, 0, 0.1)';
+      colors.statusContainer = 'rgba(0, 176, 0, 1)';
+      colors.statusText = 'rgba(0, 176, 0, 1)';
+    } else if (item.status === 'Rejected') {
+      colors.containerBackgroundcolor = 'rgba(199, 56, 79, 0.1)';
+      colors.statusContainer = 'rgba(199, 56, 79, 1)';
+      colors.statusText = 'rgba(199, 56, 79, 1)';
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('MyLeaveTypeDetails')}>
+        <View style={{paddingTop: 16}}>
+          <View
+            style={{
+              height: 160,
+              backgroundColor: colors.containerBackgroundcolor,
+              borderRadius: 8,
+              padding: 16,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <ImageBackground
+                  style={{
+                    height: 40,
+                    width: 40,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  source={require('../assets/avatarWhite.png')}>
+                  <Text>ICO</Text>
+                </ImageBackground>
+              </View>
+
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity style={{marginRight: 16}}>
+                  <Image source={require('../assets/comment.png')} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={require('../assets/attachement.png')} />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={{paddingTop: 40}}>
+              <Text style={{fontSize: 20, lineHeight: 24}}>{item.title}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center',
+                paddingTop: 8,
+              }}>
+              <Text style={{flex: 1}}>{item.dates}</Text>
+              <View
+                style={{
+                  borderRadius: 4,
+                  borderColor: colors.statusContainer,
+                  borderWidth: 1,
+                  padding: 5,
+                }}>
+                <Text style={{color: colors.statusText}}>{item.status}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const leaveRequestData = [
+    {
+      id: '1',
+      title: 'Sick leave',
+      dates: '03 Jul 2021 - 04 Jul 2021',
+      status: 'Approved',
+      hasComment: false,
+      hasAttachement: false,
+    },
+    {
+      id: '2',
+      title: 'Annual leave',
+      dates: '17 Apr 2021 - 19 Apr 2021',
+      status: 'Rejected',
+      hasComment: true,
+      hasAttachement: true,
+    },
+    {
+      id: '3',
+      title: 'Family responsibilty leave',
+      dates: '12 Mar 2021 - 13 Mar 2021',
+      status: 'Approved',
+      hasComment: false,
+      hasAttachement: false,
+    },
+  ];
+
+  const leaveRequestSegment = () => {
+    const recentLeaveRequest = {
+      item: {
+        id: '0',
+        title: 'Annual leave',
+        dates: '14 Dec 2021 - 03 Jan 2022',
+        status: 'Pending',
+        hasComment: false,
+        hasAttachement: false,
+      },
+    };
+
+    return (
+      <View>
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', paddingTop: 48}}>
+          <Text style={{flex: 1, fontSize: 15}}>Recent leave requests</Text>
+        </View>
+        {leaveRequestCard(recentLeaveRequest)}
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', paddingTop: 48}}>
+          <Text style={{flex: 1, fontSize: 15}}>All leave requests</Text>
+        </View>
+        <FlatList
+          data={leaveRequestData}
+          renderItem={leaveRequestCard}
           keyExtractor={item => item.id}
           contentContainerStyle={{paddingBottom: 120}}
         />
@@ -100,7 +245,6 @@ const MyLeave = ({navigation}) => {
   return (
     <View style={styles.myLeaveContainerStyle}>
       <Text style={styles.myLeaveHeaderTextStyle}>My leave</Text>
-
       <SegmentedControlTab
         values={['Leave request', 'Leave balance']}
         selectedIndex={selectedIndex}
@@ -110,13 +254,8 @@ const MyLeave = ({navigation}) => {
         activeTabStyle={{backgroundColor: 'rgba(229, 234, 236, 1)'}}
         activeTabTextStyle={{color: '#000'}}
       />
-
       {selectedIndex === 0 && leaveRequestSegment()}
-      {selectedIndex === 1 && (
-        <View>
-          <Text>second tab</Text>
-        </View>
-      )}
+      {selectedIndex === 1 && leaveBalanceSegment()}
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, SectionList} from 'react-native';
+import {View, Text, StyleSheet, SectionList} from 'react-native';
 
 const leaveDetailsData = [
   {
@@ -71,7 +71,9 @@ const MyLeaveDetails = () => {
   const renderItems = item => (
     <View style={styles.leaveDetailsListItemContainer}>
       <View style={styles.leaveDetailsListItemStyle}>
-        <Text style={{flex: 1, color: 'rgba(0, 0, 0, 0.65)'}}>{item.title}</Text>
+        <Text style={{flex: 1, color: 'rgba(0, 0, 0, 0.65)'}}>
+          {item.title}
+        </Text>
         <Text style={{color: 'rgba(0, 0, 0, 0.65)'}}>{item.days}</Text>
       </View>
       <Text style={{textAlign: 'right'}}>{item.numOfdays}</Text>
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontWeight: 'bold',
     paddingTop: 32,
-    paddingBottom: 16
+    paddingBottom: 16,
   },
   leaveDetailsListItemContainer: {
     height: 64,
