@@ -15,7 +15,7 @@
 1. ruby 2.6.3
 
 
-please make sure that your environment is setup correctly [Click here](https://reactnative.dev/docs/environment-setup)
+please make sure that your React Native environment is setup correctly [Click here](https://reactnative.dev/docs/environment-setup)
 
 ## run the app
 
