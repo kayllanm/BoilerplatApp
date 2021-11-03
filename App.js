@@ -1,30 +1,27 @@
-
 import React, {useEffect} from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 import reducers from './src/Reducers';
 import Navigator from './src/Navigations/StackNavigator';
-import RNBootSplash from "react-native-bootsplash";
+import RNBootSplash from 'react-native-bootsplash';
 
 const store = createStore(reducers);
 
 const App = () => {
-
   useEffect(() => {
     const init = async () => {
       // …do multiple sync or async tasks
     };
 
     init().finally(async () => {
-      await RNBootSplash.hide({ fade: true });
+      await RNBootSplash.hide({fade: true});
     });
-  }, [])
+  }, []);
 
-  return ( 
+  return (
     <Provider store={store}>
-        <Navigator />
+      <Navigator />
     </Provider>
-
   );
 };
 

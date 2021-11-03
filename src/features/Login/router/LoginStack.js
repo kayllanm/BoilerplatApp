@@ -1,9 +1,9 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginScreen from '../features/Login/LoginScreen';
-import ForgotPasswordScreen from '../features/Login/ForgotPassword';
-import CreatePassword from '../features/Login/CreatePassword';
-import SuccessScreen from '../features/Login/SuccessScreen';
+import LoginScreen from '../LoginScreen';
+import ForgotPasswordScreen from '../ForgotPassword';
+import CreatePassword from '../CreatePassword';
+import SuccessScreen from '../SuccessScreen';
 
 const LoginStack = createNativeStackNavigator();
 
