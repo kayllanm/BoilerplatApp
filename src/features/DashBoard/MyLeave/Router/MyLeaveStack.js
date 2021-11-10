@@ -39,7 +39,7 @@ export default function MyLeaveStack({navigation}) {
             shadowColor: 'transparent',
           },
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('MyLeave')}>
               <Text>Done</Text>
             </TouchableOpacity>
           ),
