@@ -1,12 +1,5 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  ScrollView,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import MyLeaveStyles from './MyLeaveStyles';
 import LeaveTypeCard from '../components/LeaveTypeCard';
@@ -14,7 +7,6 @@ import LeaveTypeCard from '../components/LeaveTypeCard';
 const MyLeave = ({navigation, route}) => {
   const {
     myLeaveContainerStyle,
-    myLeaveHeaderTextStyle,
     myLeaveCardHeaderTextContainerStyle,
     myLeaveCardHeaderTextStyle,
     myLeaveLinkTextStyle,
@@ -23,6 +15,20 @@ const MyLeave = ({navigation, route}) => {
     headerContainer,
   } = MyLeaveStyles;
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      navigation.setOptions({headerShown: true});
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    if (route?.params?.selectedView) {
+      setSelectedIndex(route?.params.selectedView);
+    }
+  }, [route?.params?.selectedView]);
 
   const handleIndexChange = index => {
     setSelectedIndex(index);
@@ -172,7 +178,6 @@ const MyLeave = ({navigation, route}) => {
 
   return (
     <View style={myLeaveContainerStyle}>
-      <Text style={myLeaveHeaderTextStyle}>My leave</Text>
       <SegmentedControlTab
         values={['Leave request', 'Leave balance']}
         selectedIndex={selectedIndex}

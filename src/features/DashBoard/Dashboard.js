@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,14 @@ const DashboardScreen = ({navigation}) => {
     carouselHeaderContainer,
     leaveBalanceText,
   } = dashboardStyles;
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      navigation.setOptions({headerShown: true});
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const leaveBalanceData = [
     {
@@ -90,7 +98,10 @@ const DashboardScreen = ({navigation}) => {
           <Text style={recentLeaveHeader}>Recent leave requests</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Leave');
+              navigation.navigate('Leave', {
+                screen: 'MyLeave',
+                params: {selectedView: 0},
+              });
             }}>
             <Text style={{color: '#00815D'}}>View all</Text>
           </TouchableOpacity>
@@ -100,10 +111,10 @@ const DashboardScreen = ({navigation}) => {
           <Text style={leaveBalanceText}>Leave balances</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.setParams({
-                header: null,
+              navigation.navigate('Leave', {
+                screen: 'MyLeave',
+                params: {selectedView: 1},
               });
-              navigation.navigate('Leave');
             }}>
             <Text style={{color: '#00815D'}}>View all</Text>
           </TouchableOpacity>

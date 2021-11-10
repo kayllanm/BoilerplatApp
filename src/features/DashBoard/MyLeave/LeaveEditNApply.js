@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -45,6 +45,14 @@ const LeaveEditNApply = ({
   const [endDate, setEndDate] = useState(leave?.endDate || new Date());
   const [open, setOpen] = useState(false);
   const [openEndCal, setOpenEndCal] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      navigation.setOptions({headerShown: true});
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const styling = {
     inputIOS: {

@@ -9,18 +9,13 @@ import Bell from '../../../../assets/bell.svg';
 
 const Stack = createNativeStackNavigator();
 
-export default function MyLeaveStack() {
+export default function MyLeaveStack({navigation}) {
   return (
-    <Stack.Navigator
-      initialRouteName="MyLeave"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName="MyLeave">
       <Stack.Screen
         name="MyLeave"
         component={MyLeave}
         options={{
-          headerTitle: () => (
-            <Text style={{color: 'rgba(0, 0, 0, 0.65)'}}>My Leave</Text>
-          ),
           headerStyle: {
             backgroundColor: 'rgba(229, 229, 229, 0.5)',
             shadowColor: 'transparent',
@@ -38,6 +33,17 @@ export default function MyLeaveStack() {
       <Stack.Screen
         name="LeaveEditNApply"
         component={LeaveEditNApplyContainer}
+        options={{
+          headerStyle: {
+            backgroundColor: 'rgba(229, 229, 229, 0.5)',
+            shadowColor: 'transparent',
+          },
+          headerRight: () => (
+            <TouchableOpacity>
+              <Text>Done</Text>
+            </TouchableOpacity>
+          ),
+        }}
       />
     </Stack.Navigator>
   );

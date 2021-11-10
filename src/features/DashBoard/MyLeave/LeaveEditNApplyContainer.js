@@ -56,6 +56,7 @@ const LeaveEditNApplyContainer = ({navigation, route}) => {
     <>
       {route.params.hasData && (
         <LeaveEditNApply
+          navigation={navigation}
           create={false}
           leave={leaveApplication.leave}
           leaveTypes={leaveTypes}
@@ -66,6 +67,7 @@ const LeaveEditNApplyContainer = ({navigation, route}) => {
       )}
       {!route.params.hasData && (
         <LeaveEditNApply
+          navigation={navigation}
           create={true}
           leaveTypes={leaveTypes}
           leaveReasons={leaveReasons}

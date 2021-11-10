@@ -15,11 +15,12 @@ import Bell from '../../../assets/bell.svg';
 
 const Tab = createBottomTabNavigator();
 
-export default function DashboardStack() {
+export default function DashboardStack({navigation, options}) {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{headerShown: false}}
+      backBehavior="firstRoute">
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
@@ -33,12 +34,23 @@ export default function DashboardStack() {
             );
           },
           tabBarIconStyle: {marginTop: 16},
+          headerStyle: {
+            backgroundColor: 'rgba(229, 229, 229, 0.5)',
+            shadowColor: 'transparent',
+          },
+          headerRight: () => (
+            <TouchableOpacity>
+              <Bell width={25} height={25} />
+            </TouchableOpacity>
+          ),
+          headerBackVisible: false,
         }}
       />
       <Tab.Screen
         name="Leave"
         component={MyLeaveStack}
         options={{
+          headerTitle: 'My Leave',
           tabBarLabel: '',
           tabBarIcon: ({focused}) => {
             return focused ? (
@@ -48,6 +60,16 @@ export default function DashboardStack() {
             );
           },
           tabBarIconStyle: {marginTop: 16},
+          headerStyle: {
+            backgroundColor: 'rgba(229, 229, 229, 0.5)',
+            shadowColor: 'transparent',
+          },
+          headerRight: () => (
+            <TouchableOpacity>
+              <Bell width={25} height={25} />
+            </TouchableOpacity>
+          ),
+          headerBackVisible: false,
         }}
       />
       <Tab.Screen
@@ -61,9 +83,38 @@ export default function DashboardStack() {
           },
         })}
         options={{
+          headerTitle: 'My Leave',
           tabBarLabel: '',
           tabBarIcon: () => <Create width={32} height={32} />,
           tabBarIconStyle: {marginTop: 16},
+          headerStyle: {
+            backgroundColor: 'rgba(229, 229, 229, 0.5)',
+            shadowColor: 'transparent',
+          },
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.push('Dashboard')}>
+              <Text
+                style={{
+                  fontSize: 17,
+                  color: 'rgba(0, 122, 255, 1)',
+                  paddingRight: 8,
+                }}>
+                Done
+              </Text>
+            </TouchableOpacity>
+          ),
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.push('Dashboard')}>
+              <Text
+                style={{
+                  fontSize: 17,
+                  color: 'rgba(0, 122, 255, 1)',
+                  paddingLeft: 8,
+                }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          ),
         }}
       />
       <Tab.Screen

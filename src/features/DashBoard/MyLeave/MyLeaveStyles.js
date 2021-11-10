@@ -5,11 +5,6 @@ const MyLeaveStyles = StyleSheet.create({
     padding: 16,
     backgroundColor: 'rgba(229, 229, 229, 0)',
   },
-  myLeaveHeaderTextStyle: {
-    fontSize: 24,
-    lineHeight: 31,
-    fontWeight: '700',
-  },
   myLeaveCardHeaderTextContainerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
