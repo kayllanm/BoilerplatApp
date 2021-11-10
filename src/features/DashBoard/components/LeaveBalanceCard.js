@@ -22,7 +22,7 @@ const LeaveBalanceCard = ({item}) => {
             <Text style={leaveTypeStyle}>{item.type}</Text>
             <View style={LeaveDaysContainer}>
               <Text style={LeaveDaysStyle}>{item.days}</Text>
-              <Text style={LeaveDaysTitle}>/Days</Text>
+              <Text style={LeaveDaysTitle}>Days</Text>
             </View>
           </View>
         </View>

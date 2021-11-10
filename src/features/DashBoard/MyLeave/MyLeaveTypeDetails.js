@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import Dialog, {
   DialogTitle,
@@ -14,11 +14,14 @@ import Dialog, {
   DialogButton,
   DialogContent,
 } from 'react-native-popup-dialog';
+import Edit from './assets/edit.svg';
+import Trash from './assets/trash.svg';
 
 const windowWidth = Dimensions.get('window').width - 64;
 
 const MyLeaveTypeDetails = ({navigation}) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const listOfCommentsData = [
     {
       username: 'Kate Black',
@@ -34,6 +37,41 @@ const MyLeaveTypeDetails = ({navigation}) => {
     },
   ];
 
+  const deleteConfirmationModal = () => {
+    return (
+      <Dialog
+        visible={showModal}
+        dialogTitle={
+          <DialogTitle title="Are you sure you would like to cancel your leave application?" />
+        }
+        width={windowWidth}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text="Take me back"
+              onPress={() => {
+                setShowModal(false);
+              }}
+            />
+            <DialogButton
+              text="Yes, cancel"
+              onPress={() => {
+                setShowModal(false);
+                navigation.navigate('Dashboard');
+              }}
+            />
+          </DialogFooter>
+        }>
+        <DialogContent>
+          <Text>
+            Cancelling your leave application cannot be undone. Your leave
+            request will be deleted from the system.
+          </Text>
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
   return (
     <>
       <ScrollView>
@@ -47,10 +85,11 @@ const MyLeaveTypeDetails = ({navigation}) => {
             </View>
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity onPress={() => setShowAlert(true)}>
-                <Image source={require('../assets/edit.png')} />
+                <Edit width={24} height={24} />
               </TouchableOpacity>
-
-              <Image source={require('../assets/delete.png')} />
+              <TouchableOpacity onPress={() => setShowModal(true)}>
+                <Trash width={24} height={24} />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.leaveTypeDetailsDataTableStyle}>
@@ -206,7 +245,9 @@ const MyLeaveTypeDetails = ({navigation}) => {
               text="Yes, edit"
               onPress={() => {
                 setShowAlert(false);
-                navigation.navigate('MyLeaveEdit');
+                navigation.navigate('LeaveEditNApply', {
+                  hasData: true,
+                });
               }}
             />
           </DialogFooter>
@@ -218,6 +259,7 @@ const MyLeaveTypeDetails = ({navigation}) => {
           </Text>
         </DialogContent>
       </Dialog>
+      {deleteConfirmationModal()}
     </>
   );
 };

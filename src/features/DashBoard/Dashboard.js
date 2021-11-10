@@ -5,16 +5,12 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
-  FlatList,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import dashboardStyles from './DashboardStyle';
 import LeaveTypeCard from './components/LeaveTypeCard';
 import LeaveBalanceCard from './components/LeaveBalanceCard';
 import PayslipCard from './components/PayslipCard';
-import PDF from './assets/pdf.svg';
-import Mail from './assets/mail.svg';
-import Download from './assets/download.svg';
 
 const {width} = Dimensions.get('window');
 
@@ -104,6 +100,9 @@ const DashboardScreen = ({navigation}) => {
           <Text style={leaveBalanceText}>Leave balances</Text>
           <TouchableOpacity
             onPress={() => {
+              navigation.setParams({
+                header: null,
+              });
               navigation.navigate('Leave');
             }}>
             <Text style={{color: '#00815D'}}>View all</Text>

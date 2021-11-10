@@ -3,9 +3,10 @@ import {StyleSheet} from 'react-native';
 const LeaveTypeCardStyles = StyleSheet.create({
   CardContainer: {
     height: 160,
-    backgroundColor: 'rgba(0, 176, 0, 0.1)',
+    backgroundColor: '#fff',
     borderRadius: 8,
     padding: 16,
+    borderLeftWidth: 4,
   },
   ImageBackgroundStyle: {
     height: 40,
@@ -21,11 +22,11 @@ const LeaveTypeCardStyles = StyleSheet.create({
     paddingTop: 8,
   },
   LeaveStatusContainer: {
-    borderRadius: 4,
-    borderColor: '#00B000',
-    borderWidth: 1,
+    borderRadius: 24,
     padding: 5,
   },
+  LeaveDateText: {flex: 1, color: 'rgba(60, 60, 67, 0.6)', fontSize: 12},
+  LeaveStatusText: {color: '#fff', fontSize: 11},
 });
 
 export default LeaveTypeCardStyles;
